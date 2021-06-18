@@ -1,0 +1,2 @@
+rootProject.name = "MsEngage"
+include ':app'
