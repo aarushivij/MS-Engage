@@ -3,13 +3,17 @@ package com.example.msengage.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.msengage.R;
+import com.example.msengage.adapters.UsersAdapters;
+import com.example.msengage.models.User;
 import com.example.msengage.utilities.Constants;
 import com.example.msengage.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,13 +23,21 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private PreferenceManager preferenceManager;
+    private List<User> users;
+    private UsersAdapters usersAdapters;
+    private TextView textErrorMessage;
+    private ProgressBar progressBarRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,25 +71,71 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        RecyclerView recyclerViewUsers = findViewById(R.id.recyclerViewUsers);
+        textErrorMessage = findViewById(R.id.textErrorMessage);
+        progressBarRefresh = findViewById(R.id.progressBarRefresh);
+
+        users = new ArrayList<>();
+        usersAdapters = new UsersAdapters(users);
+        recyclerViewUsers.setAdapter(usersAdapters);
+
+        getUsers();
+
     }
+
+    private void getUsers() {
+        progressBarRefresh.setVisibility(View.VISIBLE);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(Constants.KEY_COLLECTION_USERS)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        progressBarRefresh.setVisibility(View.GONE);
+                        String myUserId = preferenceManager.getString(Constants.KEY_USER_ID);
+                        if (task.isSuccessful() && task.getResult() != null) {
+
+                            for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
+                                if (myUserId.equals(queryDocumentSnapshot.getId())) {
+                                    continue;
+                                }
+                                User user = new User();
+                                user.firstName = queryDocumentSnapshot.getString(Constants.KEY_FIRST_NAME);
+                                user.lastName = queryDocumentSnapshot.getString(Constants.KEY_LAST_NAME);
+                                user.email = queryDocumentSnapshot.getString(Constants.KEY_EMAIL);
+                                user.token = queryDocumentSnapshot.getString(Constants.KEY_FCM_TOKEN);
+                                users.add(user);
+                            }
+                            if (users.size() > 0) {
+                                usersAdapters.notifyDataSetChanged();
+                            } else {
+                                textErrorMessage.setText(String.format("%s", "No users available"));
+                                textErrorMessage.setVisibility(View.VISIBLE);
+                            }
+
+                        } else {
+                            textErrorMessage.setText(String.format("%s", "No users available"));
+                            textErrorMessage.setVisibility(View.VISIBLE);
+                        }
+
+                    }
+                });
+    }
+
 
     //Updating FCM token to FireStore database
     private void sendFCMTokenToDataBase(String token) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference documentReference = db.collection(Constants.KEY_COLLECTION_USERS).document(preferenceManager.getString(Constants.KEY_USER_ID));
-        documentReference.update(Constants.KEY_FCM_TOKEN, token).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Toast.makeText(MainActivity.this, "FCM Token updated", Toast.LENGTH_LONG).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
+        documentReference.update(Constants.KEY_FCM_TOKEN, token)
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
 
-                Toast.makeText(MainActivity.this, "Error: Unable to send token " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Error: Unable to send token " + e.getMessage(), Toast.LENGTH_LONG).show();
 
-            }
-        });
+                    }
+                });
 
     }
 

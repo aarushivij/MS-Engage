@@ -12,4 +12,5 @@
     <string name="hint_confirm_password">Confirm Password</string>
     <string name="text_not_the_first_time_here">Not the first time here?</string>
     <string name="text_sign_out">Sign Out</string>
+    <string name="image_start_a_video_call">Start a video call</string>
 </resources>
