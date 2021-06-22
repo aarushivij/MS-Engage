@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">MsEngage</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_email">Email</string>
+    <string name="text_first_time_here_sign_up">First time here?</string>
+    <string name="image_back">back</string>
+    <string name="text_sign_up">SIGN UP</string>
+    <string name="text_we_just_need_a_few_more_details_to_get_your_account_ready">We just need a few more details to get your account ready</string>
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_last_name">Last Name</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="text_not_the_first_time_here">Not the first time here?</string>
+    <string name="text_sign_out">Sign Out</string>
 </resources>
