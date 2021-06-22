@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "932593630459",
+    "project_id": "msengage-186d6",
+    "storage_bucket": "msengage-186d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932593630459:android:adfb651cca50dd127f445e",
+        "android_client_info": {
+          "package_name": "com.example.msengage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "932593630459-sbipi7jqk0ps6oqan7v2238309ig0dam.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBo9xB-2znzf6hHfciv5ApRPmOO0Ir_ze0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "932593630459-sbipi7jqk0ps6oqan7v2238309ig0dam.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
