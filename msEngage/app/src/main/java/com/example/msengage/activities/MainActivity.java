@@ -3,13 +3,13 @@ package com.example.msengage.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.msengage.R;
 import com.example.msengage.adapters.UsersAdapters;
@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private List<User> users;
     private UsersAdapters usersAdapters;
     private TextView textErrorMessage;
-    private ProgressBar progressBarRefresh;
+    private SwipeRefreshLayout swipeRefreshLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,30 +72,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Setting up recycler view to show available users
         RecyclerView recyclerViewUsers = findViewById(R.id.recyclerViewUsers);
         textErrorMessage = findViewById(R.id.textErrorMessage);
-        progressBarRefresh = findViewById(R.id.progressBarRefresh);
+
 
         users = new ArrayList<>();
         usersAdapters = new UsersAdapters(users);
         recyclerViewUsers.setAdapter(usersAdapters);
 
+
+        //To refresh list of available users on swiping up;
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(this::getUsers);
+
         getUsers();
 
     }
 
+    //get list of users from firebase and updating the recycler view user adapter
     private void getUsers() {
-        progressBarRefresh.setVisibility(View.VISIBLE);
+        swipeRefreshLayout.setRefreshing(true);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(Constants.KEY_COLLECTION_USERS)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        progressBarRefresh.setVisibility(View.GONE);
+
+                        swipeRefreshLayout.setRefreshing(false);
                         String myUserId = preferenceManager.getString(Constants.KEY_USER_ID);
                         if (task.isSuccessful() && task.getResult() != null) {
-
+                            users.clear();                                                           //So that on swiping, user list do not already have data. Else there will be repetition of users.
                             for (QueryDocumentSnapshot queryDocumentSnapshot : task.getResult()) {
                                 if (myUserId.equals(queryDocumentSnapshot.getId())) {
                                     continue;
