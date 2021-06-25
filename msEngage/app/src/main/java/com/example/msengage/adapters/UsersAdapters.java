@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.msengage.R;
+import com.example.msengage.listeners.UsersListener;
 import com.example.msengage.models.User;
 
 import java.util.List;
@@ -17,9 +18,11 @@ import java.util.List;
 public class UsersAdapters extends RecyclerView.Adapter<UsersAdapters.UserViewHolder> {
 
     private List<User> users;
+    private UsersListener usersListener;
 
-    public UsersAdapters(List<User> users) {
+    public UsersAdapters(List<User> users, UsersListener usersListener) {
         this.users = users;
+        this.usersListener = usersListener;
     }
 
     @NonNull
@@ -45,7 +48,7 @@ public class UsersAdapters extends RecyclerView.Adapter<UsersAdapters.UserViewHo
         return users.size();
     }
 
-    static class UserViewHolder extends RecyclerView.ViewHolder {
+    class UserViewHolder extends RecyclerView.ViewHolder {
         TextView textInitials, textUserName, textUserEmail;
         ImageView imageVideoCall, imageAudioCall;
 
@@ -62,6 +65,19 @@ public class UsersAdapters extends RecyclerView.Adapter<UsersAdapters.UserViewHo
             textInitials.setText(String.format("%s%s", user.firstName.charAt(0), user.lastName.charAt(0)));
             textUserName.setText(String.format("%s %s", user.firstName, user.lastName));
             textUserEmail.setText(user.email);
+            imageAudioCall.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    usersListener.initiateAudioCall(user);
+                }
+            });
+
+            imageVideoCall.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    usersListener.initiateVideoCall(user);
+                }
+            });
         }
 
     }
