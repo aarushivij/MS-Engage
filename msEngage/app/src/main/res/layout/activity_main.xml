@@ -66,5 +66,17 @@
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/layoutHeader" />
 
+    <ImageView
+        android:id="@+id/imageConference"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_marginBottom="@dimen/_25sdp"
+        android:contentDescription="@string/image_conference_call"
+        android:src="@drawable/ic_conference"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

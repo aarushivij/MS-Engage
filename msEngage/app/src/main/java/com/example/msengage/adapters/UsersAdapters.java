@@ -7,23 +7,32 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.msengage.R;
 import com.example.msengage.listeners.UsersListener;
 import com.example.msengage.models.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UsersAdapters extends RecyclerView.Adapter<UsersAdapters.UserViewHolder> {
 
     private List<User> users;
     private UsersListener usersListener;
+    private List<User> selectedUsers;
 
     public UsersAdapters(List<User> users, UsersListener usersListener) {
         this.users = users;
         this.usersListener = usersListener;
+        selectedUsers = new ArrayList<>();
     }
+
+    public List<User> getSelectedUsers() {
+        return selectedUsers;
+    }
+
 
     @NonNull
     @Override
@@ -51,6 +60,8 @@ public class UsersAdapters extends RecyclerView.Adapter<UsersAdapters.UserViewHo
     class UserViewHolder extends RecyclerView.ViewHolder {
         TextView textInitials, textUserName, textUserEmail;
         ImageView imageVideoCall, imageAudioCall;
+        ConstraintLayout userContainer;
+        ImageView imageSelected;
 
         UserViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -59,6 +70,9 @@ public class UsersAdapters extends RecyclerView.Adapter<UsersAdapters.UserViewHo
             textUserEmail = itemView.findViewById(R.id.textUserEmail);
             imageVideoCall = itemView.findViewById(R.id.imageVideoCall);
             imageAudioCall = itemView.findViewById(R.id.imageAudioCall);
+            userContainer = itemView.findViewById(R.id.userContainer);
+            imageSelected = itemView.findViewById(R.id.imageSelected);
+
         }
 
         void setUserData(User user) {
@@ -76,6 +90,43 @@ public class UsersAdapters extends RecyclerView.Adapter<UsersAdapters.UserViewHo
                 @Override
                 public void onClick(View v) {
                     usersListener.initiateVideoCall(user);
+                }
+            });
+
+            userContainer.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    if (imageSelected.getVisibility() != View.VISIBLE) {
+                        selectedUsers.add(user);
+                        imageSelected.setVisibility(View.VISIBLE);
+                        imageAudioCall.setVisibility(View.GONE);
+                        imageVideoCall.setVisibility(View.GONE);
+                        usersListener.onMultipleUsersAction(true);
+                    }
+                    return true;
+                }
+            });
+
+            userContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (imageSelected.getVisibility() == View.VISIBLE) {
+                        selectedUsers.remove(user);
+                        imageSelected.setVisibility(View.GONE);
+                        imageAudioCall.setVisibility(View.VISIBLE);
+                        imageVideoCall.setVisibility(View.VISIBLE);
+                        if (selectedUsers.size() == 0) {
+                            usersListener.onMultipleUsersAction(false);
+                        }
+                    } else {
+                        if (selectedUsers.size() > 0) {
+                            selectedUsers.add(user);
+                            imageSelected.setVisibility(View.VISIBLE);
+                            imageVideoCall.setVisibility(View.GONE);
+                            imageAudioCall.setVisibility(View.GONE);
+                        }
+                    }
                 }
             });
         }

@@ -3,6 +3,7 @@ package com.example.msengage.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements UsersListener {
     private UsersAdapters usersAdapters;
     private TextView textErrorMessage;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ImageView imageConference;
 
 
     @Override
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements UsersListener {
         setContentView(R.layout.activity_main);
 
         preferenceManager = new PreferenceManager(getApplicationContext());
+        imageConference = findViewById(R.id.imageConference);
         TextView textUserNameHeader = findViewById(R.id.text_user_name_header);
         textUserNameHeader.setText(String.format("%s %s",
                 preferenceManager.getString(Constants.KEY_FIRST_NAME),
@@ -199,5 +203,25 @@ public class MainActivity extends AppCompatActivity implements UsersListener {
             startActivity(intent);
         }
 
+    }
+
+    @Override
+    public void onMultipleUsersAction(Boolean isMultipleUsersSelected) {
+        if (isMultipleUsersSelected) {
+            imageConference.setVisibility(View.VISIBLE);
+            imageConference.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), OutgoingCallActivity.class);
+                    intent.putExtra("selectedUsers", new Gson().toJson(usersAdapters.getSelectedUsers()));
+                    intent.putExtra("type", "video");
+                    intent.putExtra("isMultiple", true);
+                    startActivity(intent);
+                }
+            });
+
+        } else {
+            imageConference.setVisibility(View.GONE);
+        }
     }
 }
