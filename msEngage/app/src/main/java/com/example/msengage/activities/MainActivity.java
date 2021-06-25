@@ -13,6 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.msengage.R;
 import com.example.msengage.adapters.UsersAdapters;
+import com.example.msengage.listeners.UsersListener;
 import com.example.msengage.models.User;
 import com.example.msengage.utilities.Constants;
 import com.example.msengage.utilities.PreferenceManager;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements UsersListener {
 
     private PreferenceManager preferenceManager;
     private List<User> users;
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         users = new ArrayList<>();
-        usersAdapters = new UsersAdapters(users);
+        usersAdapters = new UsersAdapters(users, this);
         recyclerViewUsers.setAdapter(usersAdapters);
 
 
@@ -117,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             if (users.size() > 0) {
                                 usersAdapters.notifyDataSetChanged();
+                                textErrorMessage.setVisibility(View.GONE);
                             } else {
                                 textErrorMessage.setText(String.format("%s", "No users available"));
                                 textErrorMessage.setVisibility(View.VISIBLE);
@@ -172,5 +174,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void initiateVideoCall(User user) {
 
+        if (user.token == null || user.token.trim().isEmpty()) {
+            Toast.makeText(MainActivity.this, user.firstName + " " + user.lastName + " is not available at the moment", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(getApplicationContext(), OutgoingCallActivity.class);
+            intent.putExtra("user", user);
+            intent.putExtra("type", "video");
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void initiateAudioCall(User user) {
+
+        if (user.token == null || user.token.trim().isEmpty()) {
+            Toast.makeText(MainActivity.this, user.firstName + " " + user.lastName + " is not available at the moment", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(getApplicationContext(), OutgoingCallActivity.class);
+            intent.putExtra("user", user);
+            intent.putExtra("type", "audio");
+            startActivity(intent);
+        }
+
+    }
 }

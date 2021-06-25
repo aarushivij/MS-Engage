@@ -13,4 +13,11 @@
     <string name="text_not_the_first_time_here">Not the first time here?</string>
     <string name="text_sign_out">Sign Out</string>
     <string name="image_start_a_video_call">Start a video call</string>
+    <string name="call">call</string>
+    <string name="text_incoming_call">Incoming Call</string>
+    <string name="image_accept_call">Accept Call</string>
+    <string name="image_reject_call">Reject Call</string>
+    <string name="text_outgoing_call">Outgoing Call</string>
+    <string name="video_call">Video Calling...</string>
+    <string name="incoming_video_call">Incoming video call...</string>
 </resources>
