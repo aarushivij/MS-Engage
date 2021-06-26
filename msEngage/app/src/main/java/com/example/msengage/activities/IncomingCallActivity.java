@@ -51,12 +51,14 @@ public class IncomingCallActivity extends AppCompatActivity {
         if (callType != null) {
             if (callType.equals("video")) {
                 imageCallType.setImageResource(R.drawable.ic_video_call);
+                textIncomingCall.setText(R.string.incoming_video_call);
             } else {
                 imageCallType.setImageResource(R.drawable.ic_audio_call);
+                textIncomingCall.setText(R.string.incoming_audio_call);
             }
         }
 
-        textIncomingCall.setText(R.string.incoming_video_call);
+
         String firstName = getIntent().getStringExtra(Constants.KEY_FIRST_NAME);
         String lastName = getIntent().getStringExtra(Constants.KEY_LAST_NAME);
         String email = getIntent().getStringExtra(Constants.KEY_EMAIL);

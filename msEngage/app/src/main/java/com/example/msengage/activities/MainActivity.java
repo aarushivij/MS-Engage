@@ -174,6 +174,8 @@ public class MainActivity extends AppCompatActivity implements UsersListener {
         });
     }
 
+
+    //initiating video call and passing user's information to OutgoingCall Activity.
     @Override
     public void initiateVideoCall(User user) {
 

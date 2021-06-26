@@ -62,8 +62,10 @@ public class OutgoingCallActivity extends AppCompatActivity {
         if (callType != null) {
             if (callType.equals("video")) {
                 imageCallType.setImageResource(R.drawable.ic_video_call);
+                textOutgoingCall.setText(R.string.video_call);
             } else {
                 imageCallType.setImageResource(R.drawable.ic_audio_call);
+                textOutgoingCall.setText(R.string.Audio_calling);
             }
         }
 
@@ -72,8 +74,9 @@ public class OutgoingCallActivity extends AppCompatActivity {
             textUserInitials.setText(String.format("%s%s", user.firstName.charAt(0), user.lastName.charAt(0)));
             textUserName.setText(String.format("%s %s", user.firstName, user.lastName));
             textUserEmail.setText(user.email);
-            textOutgoingCall.setText(R.string.video_call);
+
         }
+
 
         imageStopCall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +87,7 @@ public class OutgoingCallActivity extends AppCompatActivity {
             }
         });
 
+        //Getting token of the person who is initiating the call.
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
@@ -98,6 +102,7 @@ public class OutgoingCallActivity extends AppCompatActivity {
 
     }
 
+    //Initiating a call by sending remote message through FCM. Making remote message body.
     private void initiateCall(String callType, String tokenOfReceiver) {
         try {
             JSONArray tokens = new JSONArray();
@@ -130,6 +135,8 @@ public class OutgoingCallActivity extends AppCompatActivity {
     }
 
 
+
+    //Sending remote message to FCM with retrofit api.
     private void sendRemoteMessage(String remoteMessageBody, String type) {
         ApiClient.getClient().create(ApiService.class).sendRemoteMessage(
                 Constants.getRemoteMessageHeaders(),
