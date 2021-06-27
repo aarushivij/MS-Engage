@@ -22,4 +22,9 @@
     <string name="incoming_video_call">Incoming video call...</string>
     <string name="incoming_audio_call">Incoming audio call...</string>
     <string name="Audio_calling">Audio calling...</string>
+    <string name="One_to_one_video_call">Simply click on the video icon of the user you wish to call.</string>
+    <string name="One_to_one_audio_call">Simply click on the audio icon of the user you wish to call.Your video will be disabled on starting the call.</string>
+    <string name="Conference_call">To select multiple users long click on one of the users and then select all the users you wish to call. Next click the bottom right icon to start video call with the selected users.</string>
+
+
 </resources>

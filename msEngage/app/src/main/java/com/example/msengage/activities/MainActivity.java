@@ -1,8 +1,10 @@
 package com.example.msengage.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,6 +90,16 @@ public class MainActivity extends AppCompatActivity implements UsersListener {
         swipeRefreshLayout.setOnRefreshListener(this::getUsers);
 
         getUsers();
+
+        ImageView image_info_icon = findViewById(R.id.image_info_icon);
+        Dialog dialog = new Dialog(this);
+        image_info_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.setContentView(R.layout.help_dialog_layout);
+                dialog.show();
+            }
+        });
 
     }
 
