@@ -146,9 +146,9 @@ public class OutgoingCallActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 if (response.isSuccessful()) {
                     if (type.equals(Constants.REMOTE_MESSAGE_INVITATION)) {
-                        Toast.makeText(OutgoingCallActivity.this, "Invitation sent successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(OutgoingCallActivity.this, "Invitation sent successfully", Toast.LENGTH_SHORT).show();
                     } else if (type.equals(Constants.REMOTE_MESSAGE_INVITATION_CANCELLED)) {
-                        Toast.makeText(OutgoingCallActivity.this, "Invitation cancelled", Toast.LENGTH_LONG).show();
+                        Toast.makeText(OutgoingCallActivity.this, "Invitation cancelled", Toast.LENGTH_SHORT).show();
                         finish();
                     }
 

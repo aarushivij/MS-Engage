@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements UsersListener {
                     @Override
                     public void onFailure(@NonNull Exception e) {
 
-                        Toast.makeText(MainActivity.this, "Error: Unable to send token " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Error: Unable to send token " + e.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
                 });

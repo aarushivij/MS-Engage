@@ -56,11 +56,11 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (inputEmail.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(SignInActivity.this, "Please enter Email id", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignInActivity.this, "Please enter Email id", Toast.LENGTH_SHORT).show();
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(inputEmail.getText().toString()).matches()) {
-                    Toast.makeText(SignInActivity.this, "Please enter valid Email id", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignInActivity.this, "Please enter valid Email id", Toast.LENGTH_SHORT).show();
                 } else if (inputPassword.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(SignInActivity.this, "Please enter password", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignInActivity.this, "Please enter password", Toast.LENGTH_SHORT).show();
                 } else {
                     signIn();
                 }
@@ -99,7 +99,7 @@ public class SignInActivity extends AppCompatActivity {
                         } else {
                             progressBarSignIn.setVisibility(View.INVISIBLE);
                             buttonSignIn.setEnabled(true);
-                            Toast.makeText(SignInActivity.this, "Unable to sign in", Toast.LENGTH_LONG).show();
+                            Toast.makeText(SignInActivity.this, "Unable to sign in", Toast.LENGTH_SHORT).show();
                         }
 
                     }

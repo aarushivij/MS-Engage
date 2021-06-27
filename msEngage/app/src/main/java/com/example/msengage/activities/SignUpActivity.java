@@ -64,19 +64,19 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (inputFirstName.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(SignUpActivity.this, "Please enter First Name", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUpActivity.this, "Please enter First Name", Toast.LENGTH_SHORT).show();
                 } else if (inputLastName.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(SignUpActivity.this, "Please enter Last Name", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUpActivity.this, "Please enter Last Name", Toast.LENGTH_SHORT).show();
                 } else if (inputEmail.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(SignUpActivity.this, "Please enter Email id", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUpActivity.this, "Please enter Email id", Toast.LENGTH_SHORT).show();
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(inputEmail.getText().toString()).matches()) {
-                    Toast.makeText(SignUpActivity.this, "Please enter valid Email id", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUpActivity.this, "Please enter valid Email id", Toast.LENGTH_SHORT).show();
                 } else if (inputPassword.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(SignUpActivity.this, "Please enter password", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUpActivity.this, "Please enter password", Toast.LENGTH_SHORT).show();
                 } else if (inputConfirmPassword.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(SignUpActivity.this, "Please confirm your password", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUpActivity.this, "Please confirm your password", Toast.LENGTH_SHORT).show();
                 } else if (!inputPassword.getText().toString().equals(inputConfirmPassword.getText().toString())) {
-                    Toast.makeText(SignUpActivity.this, "Password and confirm password do not match", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUpActivity.this, "Password and confirm password do not match", Toast.LENGTH_SHORT).show();
                 } else {
 
                     //checking is email is already taken.
@@ -88,7 +88,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful() && task.getResult() != null && task.getResult().getDocuments().size() > 0) {
-                                        Toast.makeText(SignUpActivity.this, "Email Already Taken", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(SignUpActivity.this, "Email Already Taken", Toast.LENGTH_SHORT).show();
                                     } else {
                                         signUp();
                                     }
@@ -137,7 +137,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 progressBarSignUp.setVisibility(View.INVISIBLE);
                 buttonSignUp.setEnabled(true);
-                Toast.makeText(SignUpActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(SignUpActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
