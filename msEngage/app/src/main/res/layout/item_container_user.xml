@@ -35,7 +35,8 @@
         android:src="@drawable/ic_video_call"
         app:layout_constraintBottom_toTopOf="@id/viewDivider"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#403E43"/>
 
     <ImageView
         android:id="@+id/imageAudioCall"
@@ -46,7 +47,8 @@
         android:src="@drawable/ic_audio_call"
         app:layout_constraintBottom_toTopOf="@id/viewDivider"
         app:layout_constraintEnd_toStartOf="@id/imageVideoCall"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint = "#403E43"/>
 
     <TextView
         android:id="@+id/textUserName"
@@ -56,10 +58,11 @@
         android:layout_marginEnd="@dimen/_8sdp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textSize="@dimen/_13ssp"
+        android:textSize="@dimen/_14ssp"
         app:layout_constraintBottom_toTopOf="@id/verticalViewDivider"
         app:layout_constraintEnd_toStartOf="@+id/imageAudioCall"
         app:layout_constraintStart_toEndOf="@id/textInitials"
+        android:textStyle="bold"
 
         />
 
@@ -74,7 +77,8 @@
         app:layout_constraintBottom_toBottomOf="@id/viewDivider"
         app:layout_constraintEnd_toStartOf="@id/imageAudioCall"
         app:layout_constraintStart_toEndOf="@id/textInitials"
-        app:layout_constraintTop_toBottomOf="@id/verticalViewDivider" />
+        app:layout_constraintTop_toBottomOf="@id/verticalViewDivider"
+        android:textSize="@dimen/_12ssp"/>
 
 
     <View
@@ -86,8 +90,10 @@
         android:layout_marginTop="@dimen/_4sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textInitials"
-        app:layout_constraintTop_toBottomOf="@+id/textInitials" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInitials"
+        android:background="#403E43"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

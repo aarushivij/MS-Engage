@@ -10,7 +10,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/colorPrimary"
+        android:background="#403E43"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,7 +22,7 @@
             android:layout_margin="@dimen/_10sdp"
             android:contentDescription="@string/image_back"
             android:src="@drawable/ic_back"
-            app:tint="@color/white" />
+            app:tint="#F3EFEF" />
 
     </LinearLayout>
 
@@ -39,20 +39,28 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_100sdp"
+                android:layout_height="@dimen/_120sdp"
+                android:background="#403E43"
                 android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/text_sign_up"
-                    android:textSize="@dimen/_16sdp" />
+                    android:text="Get on Board!"
+                    android:textColor="#F3EFEF"
+                    android:textSize="@dimen/_24sdp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="@dimen/_20sdp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/text_we_just_need_a_few_more_details_to_get_your_account_ready" />
+                    android:text="Sign up to continue"
+                    android:textColor="#F3EFEF"
+                    android:textSize="@dimen/_14ssp"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_5sdp"/>
 
 
             </LinearLayout>
@@ -61,11 +69,10 @@
                 android:id="@+id/cardSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_marginRight="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:layout_marginRight="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
                 app:layout_constraintTop_toBottomOf="@id/layoutHeader">
 
                 <LinearLayout
@@ -81,7 +88,8 @@
                         android:hint="@string/hint_first_name"
                         android:imeOptions="actionNext"
                         android:importantForAutofill="no"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textSize="@dimen/_14ssp" />
 
                     <EditText
                         android:id="@+id/inputLastName"
@@ -91,7 +99,8 @@
                         android:hint="@string/hint_last_name"
                         android:imeOptions="actionNext"
                         android:importantForAutofill="no"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textSize="@dimen/_14ssp" />
 
 
                     <EditText
@@ -102,7 +111,8 @@
                         android:hint="@string/hint_email"
                         android:imeOptions="actionNext"
                         android:importantForAutofill="no"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"
+                        android:textSize="@dimen/_14ssp" />
 
                     <EditText
                         android:id="@+id/inputPassword"
@@ -115,6 +125,7 @@
                         android:imeOptions="actionNext"
                         android:importantForAutofill="no"
                         android:inputType="textPassword"
+                        android:textSize="@dimen/_14ssp"
 
                         />
 
@@ -129,10 +140,9 @@
                         android:imeOptions="actionDone"
                         android:importantForAutofill="no"
                         android:inputType="textPassword"
+                        android:textSize="@dimen/_14ssp"
 
                         />
-
-
                 </LinearLayout>
 
 
@@ -142,9 +152,14 @@
                 android:id="@+id/buttonSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_20sdp"
-                android:text="@string/text_sign_up"
-                app:layout_constraintTop_toBottomOf="@id/cardSignUp" />
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:backgroundTint="#EA6675"
+                android:text="SIGN UP"
+                app:layout_constraintTop_toBottomOf="@id/cardSignUp"
+                android:textStyle="bold"
+                android:textSize="@dimen/_14ssp"
+                android:textColor="#F3EFEF"/>
 
             <ProgressBar
                 android:id="@+id/progressBarSignUp"
@@ -157,10 +172,11 @@
                 android:id="@+id/textAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_20sdp"
                 android:gravity="center"
                 android:text="@string/text_not_the_first_time_here"
-                app:layout_constraintTop_toBottomOf="@id/buttonSignUp" />
+                app:layout_constraintTop_toBottomOf="@id/buttonSignUp"
+                android:textSize="@dimen/_14ssp"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/textSignIn"
@@ -171,7 +187,11 @@
                 android:gravity="center"
                 android:text="@string/sign_in"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textAccount" />
+                app:layout_constraintTop_toBottomOf="@+id/textAccount"
+                android:textStyle="bold"
+                android:textColor="#EA6675"
+                android:textSize="@dimen/_14ssp"
+                android:paddingTop="@dimen/_10sdp"/>
 
 
         </LinearLayout>
