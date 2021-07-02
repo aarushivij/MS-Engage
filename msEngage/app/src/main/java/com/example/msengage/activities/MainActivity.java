@@ -121,6 +121,10 @@ public class MainActivity extends AppCompatActivity implements UsersListener {
                                 if (myUserId.equals(queryDocumentSnapshot.getId())) {
                                     continue;
                                 }
+                                String token = queryDocumentSnapshot.getString(Constants.KEY_FCM_TOKEN);
+                                if (token == null || token.trim().isEmpty()) {
+                                    continue;
+                                }
                                 User user = new User();
                                 user.firstName = queryDocumentSnapshot.getString(Constants.KEY_FIRST_NAME);
                                 user.lastName = queryDocumentSnapshot.getString(Constants.KEY_LAST_NAME);
@@ -132,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements UsersListener {
                                 usersAdapters.notifyDataSetChanged();
                                 textErrorMessage.setVisibility(View.GONE);
                             } else {
+                                usersAdapters.notifyDataSetChanged();
                                 textErrorMessage.setText(String.format("%s", "No users available"));
                                 textErrorMessage.setVisibility(View.VISIBLE);
                             }
