@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/userContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
     android:padding="@dimen/_8sdp">
 
     <TextView
@@ -17,6 +19,20 @@
         app:layout_constraintBottom_toTopOf="@id/viewDivider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageSelected"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/user_initials_background"
+        android:contentDescription="@string/image_user_selected"
+        android:src="@drawable/ic_select"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/textInitials"
+        app:layout_constraintEnd_toEndOf="@id/textInitials"
+        app:layout_constraintStart_toStartOf="@id/textInitials"
+        app:layout_constraintTop_toTopOf="@id/textInitials"
+        app:tint="@color/white" />
 
     <View
         android:id="@+id/verticalViewDivider"
@@ -36,7 +52,7 @@
         app:layout_constraintBottom_toTopOf="@id/viewDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="#403E43"/>
+        app:tint="#403E43" />
 
     <ImageView
         android:id="@+id/imageAudioCall"
@@ -48,7 +64,7 @@
         app:layout_constraintBottom_toTopOf="@id/viewDivider"
         app:layout_constraintEnd_toStartOf="@id/imageVideoCall"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint = "#403E43"/>
+        app:tint="#403E43" />
 
     <TextView
         android:id="@+id/textUserName"
@@ -59,10 +75,10 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textSize="@dimen/_14ssp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/verticalViewDivider"
         app:layout_constraintEnd_toStartOf="@+id/imageAudioCall"
         app:layout_constraintStart_toEndOf="@id/textInitials"
-        android:textStyle="bold"
 
         />
 
@@ -74,11 +90,11 @@
         android:layout_marginEnd="@dimen/_8sdp"
         android:ellipsize="end"
         android:maxLines="1"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintBottom_toBottomOf="@id/viewDivider"
         app:layout_constraintEnd_toStartOf="@id/imageAudioCall"
         app:layout_constraintStart_toEndOf="@id/textInitials"
-        app:layout_constraintTop_toBottomOf="@id/verticalViewDivider"
-        android:textSize="@dimen/_12ssp"/>
+        app:layout_constraintTop_toBottomOf="@id/verticalViewDivider" />
 
 
     <View
@@ -88,12 +104,11 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginLeft="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_4sdp"
+        android:background="#403E43"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInitials"
-        android:background="#403E43"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/textInitials" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

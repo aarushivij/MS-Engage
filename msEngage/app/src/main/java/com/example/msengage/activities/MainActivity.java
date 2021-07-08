@@ -29,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements UsersListener {
     private UsersAdapters usersAdapters;
     private TextView textErrorMessage;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ImageView imageConference;
 
 
     @Override
@@ -54,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements UsersListener {
                 preferenceManager.getString(Constants.KEY_FIRST_NAME),
                 preferenceManager.getString(Constants.KEY_LAST_NAME)
         ));
+
+        imageConference = findViewById(R.id.imageConference);
 
         // getting fcm token
         FirebaseMessaging.getInstance().getToken()
@@ -218,5 +222,24 @@ public class MainActivity extends AppCompatActivity implements UsersListener {
             startActivity(intent);
         }
 
+    }
+
+    @Override
+    public void onMultipleUsersAction(Boolean isMultipleUsersSelected) {
+        if (isMultipleUsersSelected) {
+            imageConference.setVisibility(View.VISIBLE);
+            imageConference.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), OutgoingCallActivity.class);
+                    intent.putExtra("selectedUsers", new Gson().toJson(usersAdapters.getSelectedUsers()));
+                    intent.putExtra("type", "video");
+                    intent.putExtra("isMultiple", true);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            imageConference.setVisibility(View.GONE);
+        }
     }
 }

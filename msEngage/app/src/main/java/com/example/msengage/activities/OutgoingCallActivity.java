@@ -23,13 +23,17 @@ import com.example.msengage.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.jitsi.meet.sdk.JitsiMeetActivity;
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -42,6 +46,12 @@ public class OutgoingCallActivity extends AppCompatActivity {
     private String tokenOfSender = null;
     private String meetingRoom = null;
     private String callType = null;
+    private TextView textUserInitials;
+    private TextView textUserName;
+    private TextView textUserEmail;
+    private int rejectionCount = 0;
+    private int totalReceivers = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +59,9 @@ public class OutgoingCallActivity extends AppCompatActivity {
         setContentView(R.layout.activity_outgoing_call);
 
         ImageView imageCallType = findViewById(R.id.imageCallType);
-        TextView textUserInitials = findViewById(R.id.textUserInitials);
-        TextView textUserName = findViewById(R.id.textUserName);
-        TextView textUserEmail = findViewById(R.id.textUserEmail);
+        textUserInitials = findViewById(R.id.textUserInitials);
+        textUserName = findViewById(R.id.textUserName);
+        textUserEmail = findViewById(R.id.textUserEmail);
         TextView textOutgoingCall = findViewById(R.id.textOutgoingCall);
         ImageView imageStopCall = findViewById(R.id.imageStopCall);
 
@@ -81,9 +91,18 @@ public class OutgoingCallActivity extends AppCompatActivity {
         imageStopCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (user != null) {
-                    sendCancelInvitation(user.token);
+                if (getIntent().getBooleanExtra("isMultiple", false)) {
+                    Type type = new TypeToken<ArrayList<User>>() {
+                    }.getType();
+                    ArrayList<User> receivers = new Gson().fromJson(getIntent().getStringExtra("selectedUsers"), type);
+                    sendCancelInvitation(null, receivers);
+
+                } else {
+                    if (user != null) {
+                        sendCancelInvitation(user.token, null);
+                    }
                 }
+
             }
         });
 
@@ -93,9 +112,25 @@ public class OutgoingCallActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<String> task) {
                 if (task.isSuccessful() && task.getResult() != null) {
                     tokenOfSender = task.getResult();
-                    if (callType != null && user != null) {
-                        initiateCall(callType, user.token);
+
+                    if (callType != null) {
+                        if (getIntent().getBooleanExtra("isMultiple", false)) {
+                            Type type = new TypeToken<ArrayList<User>>() {
+                            }.getType();
+                            ArrayList<User> receivers = new Gson().fromJson(getIntent().getStringExtra("selectedUsers"), type);
+                            if (receivers != null) {
+                                totalReceivers = receivers.size();
+                            }
+                            initiateCall(callType, null, receivers);
+
+                        } else {
+                            if (user != null) {
+                                totalReceivers = 1;
+                                initiateCall(callType, user.token, null);
+                            }
+                        }
                     }
+
                 }
             }
         });
@@ -103,10 +138,24 @@ public class OutgoingCallActivity extends AppCompatActivity {
     }
 
     //Initiating a call by sending remote message through FCM. Making remote message body.
-    private void initiateCall(String callType, String tokenOfReceiver) {
+    private void initiateCall(String callType, String tokenOfReceiver, ArrayList<User> receivers) {
         try {
             JSONArray tokens = new JSONArray();
-            tokens.put(tokenOfReceiver);
+
+            if (tokenOfReceiver != null) {
+                tokens.put(tokenOfReceiver);
+            }
+
+            if (receivers != null && receivers.size() > 0) {
+                StringBuilder userNames = new StringBuilder();
+                for (int i = 0; i < receivers.size(); i++) {
+                    tokens.put(receivers.get(i).token);
+                    userNames.append(receivers.get(i).firstName).append(" ").append(receivers.get(i).lastName).append("\n");
+                }
+                textUserInitials.setVisibility(View.GONE);
+                textUserEmail.setVisibility(View.GONE);
+                textUserName.setText(userNames.toString());
+            }
 
             JSONObject body = new JSONObject();
             JSONObject data = new JSONObject();
@@ -133,7 +182,6 @@ public class OutgoingCallActivity extends AppCompatActivity {
         }
 
     }
-
 
 
     //Sending remote message to FCM with retrofit api.
@@ -168,11 +216,21 @@ public class OutgoingCallActivity extends AppCompatActivity {
         });
     }
 
-    private void sendCancelInvitation(String tokenOfReceiver) {
+    private void sendCancelInvitation(String tokenOfReceiver, ArrayList<User> receivers) {
         try {
 
             JSONArray tokens = new JSONArray();
-            tokens.put(tokenOfReceiver);
+
+            if (tokenOfReceiver != null) {
+                tokens.put(tokenOfReceiver);
+
+            }
+
+            if (receivers != null && receivers.size() > 0) {
+                for (User user : receivers) {
+                    tokens.put(user.token);
+                }
+            }
 
             JSONObject body = new JSONObject();
             JSONObject data = new JSONObject();
@@ -212,8 +270,13 @@ public class OutgoingCallActivity extends AppCompatActivity {
                         finish();
                     }
                 } else if (type.equals(Constants.REMOTE_MESSAGE_INVITATION_REJECTED)) {
-                    Toast.makeText(OutgoingCallActivity.this, "Call rejected", Toast.LENGTH_SHORT).show();
-                    finish();
+
+                    rejectionCount += 1;
+                    if (rejectionCount == totalReceivers) {
+                        Toast.makeText(OutgoingCallActivity.this, "Call rejected", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+
                 }
             }
         }
