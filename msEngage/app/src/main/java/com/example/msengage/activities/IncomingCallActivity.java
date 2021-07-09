@@ -121,6 +121,11 @@ public class IncomingCallActivity extends AppCompatActivity {
                             JitsiMeetConferenceOptions.Builder builder = new JitsiMeetConferenceOptions.Builder();
                             builder.setServerURL(serverURL);
                             builder.setWelcomePageEnabled(false);
+                            builder.setFeatureFlag("add-people.enabled",false);
+                            builder.setFeatureFlag("invite.enabled",false);
+                            builder.setFeatureFlag("recording.enabled",false);
+                            builder.setFeatureFlag("live-streaming.enabled",false);
+                            builder.setFeatureFlag("meeting-password.enabled",false);
                             builder.setRoom(getIntent().getStringExtra(Constants.REMOTE_MESSAGE_MEETING_ROOM));
                             if (callType.equals("audio")) {
                                 builder.setVideoMuted(true);

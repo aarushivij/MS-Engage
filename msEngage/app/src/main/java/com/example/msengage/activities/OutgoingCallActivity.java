@@ -167,8 +167,7 @@ public class OutgoingCallActivity extends AppCompatActivity {
             data.put(Constants.KEY_EMAIL, preferenceManager.getString(Constants.KEY_EMAIL));
             //So that receiver can use this token and send message back to its response, about call rejected/accepted.
             data.put(Constants.REMOTE_MESSAGE_TOKEN_OF_SENDER, tokenOfSender);
-
-            meetingRoom = preferenceManager.getString(Constants.KEY_USER_ID) + " " + UUID.randomUUID().toString().substring(0, 5);
+            meetingRoom = "Meeting-organized-by" + preferenceManager.getString(Constants.KEY_FIRST_NAME);
             data.put(Constants.REMOTE_MESSAGE_MEETING_ROOM, meetingRoom);
 
             body.put(Constants.REMOTE_MESSAGE_DATA, data);
@@ -260,6 +259,11 @@ public class OutgoingCallActivity extends AppCompatActivity {
                         builder.setServerURL(serverURL);
                         builder.setWelcomePageEnabled(false);
                         builder.setRoom(meetingRoom);
+                        builder.setFeatureFlag("add-people.enabled",false);
+                        builder.setFeatureFlag("invite.enabled",false);
+                        builder.setFeatureFlag("recording.enabled",false);
+                        builder.setFeatureFlag("live-streaming.enabled",false);
+                        builder.setFeatureFlag("meeting-password.enabled",false);
                         if (callType.equals("audio")) {
                             builder.setVideoMuted(true);
                         }
