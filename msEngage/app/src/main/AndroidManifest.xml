@@ -12,11 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MsEngage"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activities.ChatActivity" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".activities.OutgoingCallActivity" />
         <activity android:name=".activities.IncomingCallActivity" />
-        <activity android:name=".activities.SignInActivity"
+        <activity
+            android:name=".activities.SignInActivity"
             android:windowSoftInputMode="adjustResize">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

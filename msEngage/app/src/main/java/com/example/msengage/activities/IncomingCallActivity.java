@@ -126,6 +126,7 @@ public class IncomingCallActivity extends AppCompatActivity {
                             builder.setFeatureFlag("recording.enabled",false);
                             builder.setFeatureFlag("live-streaming.enabled",false);
                             builder.setFeatureFlag("meeting-password.enabled",false);
+                            builder.setFeatureFlag("chat.enabled",false);
                             builder.setRoom(getIntent().getStringExtra(Constants.REMOTE_MESSAGE_MEETING_ROOM));
                             if (callType.equals("audio")) {
                                 builder.setVideoMuted(true);

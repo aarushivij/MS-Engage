@@ -66,6 +66,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="#403E43" />
 
+    <ImageView
+        android:id="@+id/imageChat"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:contentDescription="@string/chat"
+        android:padding="@dimen/_4sdp"
+        android:src="@drawable/ic_baseline_chat_24"
+        app:layout_constraintBottom_toTopOf="@id/viewDivider"
+        app:layout_constraintEnd_toStartOf="@id/imageAudioCall"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#403E43" />
+
     <TextView
         android:id="@+id/textUserName"
         android:layout_width="0dp"
