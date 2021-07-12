@@ -28,6 +28,8 @@
     <string name="welcome">WELCOME!</string>
     <string name="please_sign_in_to_continue">Please sign in to continue.</string>
     <string name="image_user_selected">User selected</string>
+    <string name="chat">Chat</string>
+    <string name="type_your_message">Type your message...</string>
 
 
 </resources>

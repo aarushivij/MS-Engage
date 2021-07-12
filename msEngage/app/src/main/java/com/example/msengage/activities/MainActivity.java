@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements UsersListener {
                                 user.lastName = queryDocumentSnapshot.getString(Constants.KEY_LAST_NAME);
                                 user.email = queryDocumentSnapshot.getString(Constants.KEY_EMAIL);
                                 user.token = queryDocumentSnapshot.getString(Constants.KEY_FCM_TOKEN);
+                                user.userId = queryDocumentSnapshot.getId();
                                 users.add(user);
                             }
                             if (users.size() > 0) {
@@ -224,6 +225,8 @@ public class MainActivity extends AppCompatActivity implements UsersListener {
 
     }
 
+
+
     @Override
     public void onMultipleUsersAction(Boolean isMultipleUsersSelected) {
         if (isMultipleUsersSelected) {
@@ -240,6 +243,19 @@ public class MainActivity extends AppCompatActivity implements UsersListener {
             });
         } else {
             imageConference.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void initiateChat(User user) {
+
+        if (user.token == null || user.token.trim().isEmpty()) {
+            Toast.makeText(MainActivity.this, user.firstName + " " + user.lastName + " is not available at the moment", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+            intent.putExtra("receiverUid", user.userId);
+            intent.putExtra("receiverName",user.firstName);
+            startActivity(intent);
         }
     }
 }

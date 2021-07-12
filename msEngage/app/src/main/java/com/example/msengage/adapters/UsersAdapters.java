@@ -59,7 +59,7 @@ public class UsersAdapters extends RecyclerView.Adapter<UsersAdapters.UserViewHo
 
     class UserViewHolder extends RecyclerView.ViewHolder {
         TextView textInitials, textUserName, textUserEmail;
-        ImageView imageVideoCall, imageAudioCall;
+        ImageView imageVideoCall, imageAudioCall,imageChat;
         ConstraintLayout userContainer;
         ImageView imageSelected;
 
@@ -72,6 +72,7 @@ public class UsersAdapters extends RecyclerView.Adapter<UsersAdapters.UserViewHo
             imageAudioCall = itemView.findViewById(R.id.imageAudioCall);
             userContainer = itemView.findViewById(R.id.userContainer);
             imageSelected = itemView.findViewById(R.id.imageSelected);
+            imageChat = itemView.findViewById(R.id.imageChat);
         }
 
         void setUserData(User user) {
@@ -89,6 +90,13 @@ public class UsersAdapters extends RecyclerView.Adapter<UsersAdapters.UserViewHo
                 @Override
                 public void onClick(View v) {
                     usersListener.initiateVideoCall(user);
+                }
+            });
+
+            imageChat.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    usersListener.initiateChat(user);
                 }
             });
 

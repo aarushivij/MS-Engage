@@ -43,6 +43,11 @@ public class Constants {
 
     public static final String REMOTE_MESSAGE_MEETING_ROOM = "meetingRoom";
 
+    //chat constants
+    public static final String KEY_CHAT_USER = "chatUser";
+    public static final String KEY_CHATS = "chats";
+    public static final String KEY_MESSAGES = "messages";
+
 
     public static HashMap<String, String> getRemoteMessageHeaders() {
         HashMap<String, String> headers = new HashMap<>();

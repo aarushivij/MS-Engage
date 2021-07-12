@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.msengage.R;
+import com.example.msengage.models.ChatUser;
 import com.example.msengage.utilities.Constants;
 import com.example.msengage.utilities.PreferenceManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,9 +20,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
@@ -31,6 +36,7 @@ public class SignUpActivity extends AppCompatActivity {
     private MaterialButton buttonSignUp;
     private ProgressBar progressBarSignUp;
     private PreferenceManager preferenceManager;
+    private FirebaseDatabase database;
 
 
     @Override
@@ -108,6 +114,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         //adding user info into fireStore database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         HashMap<String, Object> user = new HashMap<>();
 
@@ -126,6 +133,24 @@ public class SignUpActivity extends AppCompatActivity {
                 preferenceManager.putString(Constants.KEY_LAST_NAME, inputLastName.getText().toString());
                 preferenceManager.putString(Constants.KEY_EMAIL, inputEmail.getText().toString());
                 preferenceManager.putString(Constants.KEY_PASSWORD, inputPassword.getText().toString());
+
+                DatabaseReference reference = database.getReference().child(Constants.KEY_CHAT_USER).child(documentReference.getId());
+                ChatUser chatUser = new ChatUser(documentReference.getId(),inputFirstName.getText().toString());
+                reference.setValue(chatUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull @NotNull Task<Void> task) {
+
+                        if(task.isSuccessful())
+                        {
+                            Toast.makeText(SignUpActivity.this, "Chat user created", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(SignUpActivity.this, "Chat user not created", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);

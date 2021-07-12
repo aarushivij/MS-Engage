@@ -264,6 +264,7 @@ public class OutgoingCallActivity extends AppCompatActivity {
                         builder.setFeatureFlag("recording.enabled",false);
                         builder.setFeatureFlag("live-streaming.enabled",false);
                         builder.setFeatureFlag("meeting-password.enabled",false);
+                        builder.setFeatureFlag("chat.enabled",false);
                         if (callType.equals("audio")) {
                             builder.setVideoMuted(true);
                         }
