@@ -5,7 +5,7 @@ Product created as part of Microsoft Engage Mentorship Program 2021.
 # Features
 * One to One Video and Audio Call.
 * Conference Video Call with Multiple Participants.
-* On the Call Chat Functionality.
+*  Chat Functionality.
 
 
 # Technology Used
@@ -29,11 +29,11 @@ I have used various concepts of Agile Methodology, that helped me build the prod
 
 # APK Link
 
-[Donload APK](https://github.com/aarushivij/MS-Engage/blob/main/app-debug.apk)
+[Donload APK](https://github.com/aarushivij/MS-Engage/blob/main/app-debug(1).apk)
 
 # Demo Video
 
-[Demo](https://drive.google.com/file/d/1FHrj1P7y80X053x4CWo0hpXM2ViorDy5/view)
+[Demo](https://drive.google.com/file/d/1APos_NFnVq5SbE25vhZ8fCmjCGGQBKhJ/view)
 
 # Demonstrations
 
@@ -55,19 +55,19 @@ There is an info icon on the top right corner, which contains all the instructio
 
 For one-to-one video call, simply click on the video call icon and if receiver accepts the call, a meeting is initiated.
 
-<img src="https://github.com/aarushivij/MS-Engage/blob/main/Application%20Screenshots/Video_call.jpeg" width="250" height="500" title="Video Call">
+<img src="https://github.com/aarushivij/MS-Engage/blob/main/Application%20Screenshots/video_call.jpeg" width="250" height="500" title="Video Call">
 
 For one-to-one audio call, click on the audio icon. Here the participants join the meeting with their videos off.
 
-<img src="https://github.com/aarushivij/MS-Engage/blob/main/Application%20Screenshots/Audio_call.jpeg" width="250" height="500" title="Audio Call">
+<img src="https://github.com/aarushivij/MS-Engage/blob/main/Application%20Screenshots/audio_call.jpeg" width="250" height="500" title="Audio Call">
 
 For confernce call, long click on the first user you want to add, and then add all the other users by clicking on them. Then click on the bottom right corner video icon, to send invitaion to the selected users for the call.
 
-<img src="https://github.com/aarushivij/MS-Engage/blob/main/Application%20Screenshots/Conference_call.jpeg" width="250" height="500" title="Audio Call">
+<img src="https://github.com/aarushivij/MS-Engage/blob/main/Application%20Screenshots/conference_call.jpeg" width="250" height="500" title="Audio Call">
 
-You can chat during the call, without disrupting the flow of the call.
+You can chat with any user anytime. To chat with the user during the call, minimize your video call screen by clicking on the top left icon, and then simply chat.
 
-<img src="https://github.com/aarushivij/MS-Engage/blob/main/Application%20Screenshots/On_the_call_chat.jpeg" width="250" height="500" title="On the call chat">
+<img src="https://github.com/aarushivij/MS-Engage/blob/main/Application%20Screenshots/chat_icon.jpeg" width="250" height="500" title="On the call chat">  <img src="https://github.com/aarushivij/MS-Engage/blob/main/Application%20Screenshots/chat.jpeg" width="250" height="500" title="On the call chat">
 
 Caller's Outgoing Call Screen
 
